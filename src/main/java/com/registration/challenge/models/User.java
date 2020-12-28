@@ -1,81 +1,90 @@
 package com.registration.challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
-@Entity(name = "users")
+@Entity
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long user_id;
-    private String user_name;
-    private String user_email;
+    private Long id;
+    @NotNull @JsonProperty("user-name")
+    private String name;
+    @NotNull @JsonProperty("user-email")
+    private String email;
 
-    @OneToMany
-    @JoinTable(
-            name = "users_phones",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "phone_id"))
-    private List<Phone> phone;
+    @JsonManagedReference
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    List<Phone> phones;
 
-    private Date user_created;
-    private Date user_modified;
-    private Date user_lastLogin;
+    private LocalDateTime created;
+    private LocalDateTime modified;
+    private Date lastLogin;
 
-    public Long getUser_id() {
-        return user_id;
+    public User() {}
+
+    public User(Long id, String name, String email, List<Phone> phones, LocalDateTime created, LocalDateTime modified, Date lastLogin) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.created = created;
+        this.modified = modified;
+        this.lastLogin = lastLogin;
     }
 
-    public void setUser_id(Long user_id) {
-        this.user_id = user_id;
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getUser_name() {
-        return user_name;
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setUser_name(String user_name) {
-        this.user_name = user_name;
+    public String getEmail() {
+        return email;
+    }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getUser_email() {
-        return user_email;
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
     }
 
-    public void setUser_email(String user_email) {
-        this.user_email = user_email;
+    public LocalDateTime getCreated() {
+        return created;
+    }
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
-    public List<Phone> getPhone() {
-        return phone;
+    public LocalDateTime getModified() {
+        return modified;
+    }
+    public void setModified(LocalDateTime modified) {
+        this.modified = modified;
     }
 
-    public void setPhone(List<Phone> phone) {
-        this.phone = phone;
+    public List<Phone> getPhones() {
+        return phones;
     }
 
-    public Date getUser_created() {
-        return user_created;
-    }
-
-    public void setUser_created(Date user_created) {
-        this.user_created = user_created;
-    }
-
-    public Date getUser_modified() {
-        return user_modified;
-    }
-
-    public void setUser_modified(Date user_modified) {
-        this.user_modified = user_modified;
-    }
-
-    public Date getUser_lastLogin() {
-        return user_lastLogin;
-    }
-
-    public void setUser_lastLogin(Date user_lastLogin) {
-        this.user_lastLogin = user_lastLogin;
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
     }
 }
