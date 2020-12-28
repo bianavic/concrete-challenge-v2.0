@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 HELP.md
 .gradle
 build/
@@ -35,3 +36,21 @@ out/
 
 ### VS Code ###
 .vscode/
+=======
+# Default ignored files
+/shelf/
+/workspace.xml
+
+### Gradle ###
+.gradle
+build/
+
+### Gradle Patch ###
+**/build/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+*.class
+.idea
+>>>>>>> ce25c38faccc0a8bf42b367a75b2e501296dc7e2
