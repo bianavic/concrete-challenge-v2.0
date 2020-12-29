@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -14,9 +15,10 @@ public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull @JsonProperty("user-name")
+    @NotBlank
+    @JsonProperty("user-name")
     private String name;
-    @NotNull @JsonProperty("user-email")
+    @NotBlank @JsonProperty("user-email")
     private String email;
 
     @JsonManagedReference
