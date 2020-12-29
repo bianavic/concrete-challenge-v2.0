@@ -29,7 +29,7 @@ public class User {
     private LocalDateTime modified;
     private Date lastLogin;
 
-    public User() {}
+    public User(String joao, String maria) {}
 
     public User(Long id, String name, String email, List<Phone> phones, LocalDateTime created, LocalDateTime modified, Date lastLogin) {
         this.id = id;
