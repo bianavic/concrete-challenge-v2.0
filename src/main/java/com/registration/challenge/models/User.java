@@ -1,14 +1,12 @@
 package com.registration.challenge.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -21,17 +19,16 @@ public class User {
     @NotBlank @JsonProperty("user-email")
     private String email;
 
-    @JsonManagedReference
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
-    List<Phone> phones;
+    // @JsonManagedReference
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    //List<Phone> phones;
+    private Set<Phone> phone;
 
     private LocalDateTime created;
     private LocalDateTime modified;
     private Date lastLogin;
 
-    public User(String joao, String maria) {}
-
-    public User(Long id, String name, String email, List<Phone> phones, LocalDateTime created, LocalDateTime modified, Date lastLogin) {
+    public User(String name, String email) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -39,6 +36,8 @@ public class User {
         this.modified = modified;
         this.lastLogin = lastLogin;
     }
+
+    public User() {}
 
     public Long getId() {
         return id;
@@ -82,11 +81,6 @@ public class User {
         this.modified = modified;
     }
 
-    public List<Phone> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
-    }
+    public Set<Phone> getPhone() { return phone; }
+    public void setPhone(Set<Phone> phone) { this.phone = phone; }
 }

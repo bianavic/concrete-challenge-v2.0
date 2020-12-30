@@ -1,3 +1,6 @@
+/**
+ *
+
 package com.registration.challenge.controllers;
 
 import com.registration.challenge.models.User;
@@ -25,7 +28,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("/user")
-    User create(@Valid @RequestBody User user){
+    public User create(@Valid @RequestBody User user){
             return userService.save(user);
     }
 
@@ -39,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/user")
-    Iterable<User> read() {
+    public Iterable<User> read() {
         return userService.findAll();
     }
 
@@ -52,7 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) {
         userService.deleteById(id);
     }
 
@@ -66,25 +69,15 @@ public class UserController {
         return userService.findByEmail(email);
     }
 
-    /**
-    @GetMapping("/{id}")
-    public User get(@PathVariable Long id) {
-
-        return userRepository.getOne(id);
+    @GetMapping("/wrong")
+    public User somethingIsWrong() {
+        throw new ValidationException("Something is wrong");
     }
 
-    @PostMapping("/users")
-    @ResponseStatus(HttpStatus.CREATED)
-    public User create(@RequestBody User user) {
-        return userRepository.saveAndFlush(user);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    String exceptionHandler(ValidationException e) {
+        return e.getMessage();
     }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<User> update(@PathVariable Long id, @RequestBody User user) {
-        return (userRepository.existsById(id))
-                ? new ResponseEntity<User>(create(user), HttpStatus.CREATED)
-                : new ResponseEntity<User>(user, HttpStatus.OK);
-    }
-    **/
-
 }
+ */
